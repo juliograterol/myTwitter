@@ -1,0 +1,53 @@
+/* Estilos para el contenedor principal del tweet */
+.tweet {
+  background-color: #f9f9f9; /* Color de fondo */
+  color: black;
+  border: 1px solid #ddd; /* Borde */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 10px; /* Espaciado interno */
+  margin-bottom: 10px; /* Margen inferior entre tweets */
+  align-items: start;
+}
+
+/* Estilos para el área del nombre del usuario y la fecha del tweet */
+.tweetBy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Margen inferior */
+}
+
+.tweetBy strong {
+  font-weight: bold; /* Texto en negrita */
+  font-size: 18px; /* Tamaño de fuente */
+}
+
+.tweetBy p {
+  color: #777; /* Color de texto */
+  font-size: 14px; /* Tamaño de fuente */
+}
+
+/* Estilos para el contenido del tweet */
+p {
+  text-align: start;
+  font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Estilos para el área de opciones (botones) */
+.options {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px; /* Margen superior */
+}
+
+.options button {
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cursor de tipo puntero al pasar el ratón */
+  font-size: 16px; /* Tamaño de fuente de los botones */
+  margin-right: 10px; /* Margen derecho entre los botones */
+}
+
+.options button ion-icon {
+  color: #777; /* Color de ícono */
+}
