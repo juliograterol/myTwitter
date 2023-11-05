@@ -12,9 +12,8 @@
 /* Estilos para el área del nombre del usuario y la fecha del tweet */
 .tweetBy {
   display: flex;
-  justify-content: space-between;
+  //   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px; /* Margen inferior */
 }
 
 .tweetBy strong {
@@ -36,7 +35,7 @@ p {
 /* Estilos para el área de opciones (botones) */
 .options {
   display: flex;
-  justify-content: space-around;
+  //   justify-content: space-around;
   margin-top: 10px; /* Margen superior */
 }
 
