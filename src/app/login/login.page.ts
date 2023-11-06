@@ -1,8 +1,9 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 import FetchApi from '../services/fetchapi.service';
 import { AlertController } from '@ionic/angular';
-
-// import { Router } from '@angular/router';
+import { Renderer2 } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-login',
@@ -14,28 +15,30 @@ export class LoginPage {
     identifier: '',
     password: '',
   };
+  token: string | undefined; // Variable para almacenar el token
+
   constructor(
     private apiService: FetchApi,
     private alertController: AlertController,
-    private renderer: Renderer2
-  ) {}
+    private renderer: Renderer2,
+    private platform: Platform,
+    private storage: Storage
+  ) {
+    this.platform.ready().then(() => {
+      this.initStorage();
+    });
+  }
+
+  async initStorage() {
+    this.storage = await this.storage.create();
+    // Recuperar el token si ya está almacenado
+    this.token = await this.storage.get('token');
+  }
 
   async login() {
-    // Aquí deberías agregar la lógica de inicio de sesión
+    // Tu código para iniciar sesión
 
-    // Realiza una solicitud POST utilizando el servicio ApiService
     try {
-      // Define los datos que deseas enviar en el cuerpo de la solicitud
-
-      if (!this.userData.identifier || !this.userData.password) {
-        this.presentAlert(
-          'Datos Incompeltos',
-          'Para iniciar sesión debe llenar todo los datos',
-          'OK'
-        );
-        return;
-      }
-
       const response = await this.apiService.request(
         'POST',
         {
@@ -45,10 +48,14 @@ export class LoginPage {
         `http://localhost:3000/auth/login`
       );
 
-      if (!response) {
+      if (response && response.data && response.data.token) {
+        this.token = response.data.token;
+        // Guardar el token en Ionic Storage
+        await this.storage.set('token', this.token);
+      } else {
         this.presentAlert(
           'Datos Erroneos',
-          'El usuario/correo, o la contraseña no son correctos',
+          'El usuario/correo o la contraseña no son correctos',
           'OK'
         );
       }
@@ -57,12 +64,11 @@ export class LoginPage {
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
     }
-    // Inicio de sesión fallido, muestra un mensaje de error
   }
+
   async presentAlert(header: string, message: string, btnText: string) {
     const alert = await this.alertController.create({
       header: header,
-      // subHeader: 'Important message',
       message: message,
       buttons: [btnText],
     });
