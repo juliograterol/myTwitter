@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FetchManager {
-  private baseUrl: string;
-  private timeout: number;
-
-  constructor(private http: HttpClient) {
-    this.baseUrl = ''; // Coloca tu URL base aquí
-    this.timeout = 5000; // Establece tu tiempo de espera aquí (opcional)
-  }
+export default class FetchApi {
+  constructor(private http: HttpClient) {}
 
   async request(
     method: string,
@@ -39,11 +34,11 @@ export class FetchManager {
 
     try {
       const response = await this.http
-        .request(method, this.baseUrl + endpoint, options)
+        .request(method, endpoint, options)
         .toPromise();
       return response;
     } catch (error) {
-      throw new Error(`Error en la solicitud: ${error}`);
+      console.log(error);
     }
   }
 }
