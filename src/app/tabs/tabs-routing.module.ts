@@ -4,7 +4,7 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
@@ -28,16 +28,11 @@ const routes: Routes = [
           import('../tab4/tab4.module').then((m) => m.Tab4PageModule),
       },
       {
-        path: '',
-        redirectTo: '/tabs/tab1',
+        path: '', // Ruta vacía, es decir, cuando se navega a /tabs
+        redirectTo: 'tab1', // Redirige a la pestaña por defecto
         pathMatch: 'full',
       },
     ],
-  },
-  {
-    path: 'tabs',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full',
   },
 ];
 

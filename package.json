@@ -10,7 +10,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "nx": "ng g s services/fetchapi"
+    "nx": "ng g s services/fetchapi",
+    "ngauth": "ng generate guard auth"
   },
   "private": true,
   "dependencies": {

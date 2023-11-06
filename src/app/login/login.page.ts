@@ -51,7 +51,9 @@ export class LoginPage {
       if (response && response.data && response.data.token) {
         this.token = response.data.token;
         // Guardar el token en Ionic Storage
-        await this.storage.set('token', this.token);
+        if (this.token !== undefined) {
+          await this.storage.set('token', this.token);
+        }
         this.router.navigateByUrl('tabs');
       } else {
         this.presentAlert(
