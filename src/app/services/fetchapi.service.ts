@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,10 +8,14 @@ import { Observable } from 'rxjs';
 export default class FetchApi {
   constructor(private http: HttpClient) {}
 
+  private baseUrl = 'http://localhost:3000';
+
   async request(
     method: string,
     data: object | null,
-    endpoint: string
+    endpoint: string,
+    token?: string,
+    params?: any
   ): Promise<any> {
     const validMethods = ['GET', 'POST', 'PUT', 'DELETE'];
     if (!validMethods.includes(method)) {
@@ -32,13 +36,27 @@ export default class FetchApi {
       options.body = JSON.stringify(data);
     }
 
+    if (token) {
+      options.headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    let fullUrl = this.baseUrl + endpoint;
+
+    if (params) {
+      const queryParams = Object.keys(params)
+        .map((key) => `${key}=${params[key]}`)
+        .join('&');
+      fullUrl += `?${queryParams}`;
+    }
+
     try {
       const response = await this.http
-        .request(method, endpoint, options)
+        .request(method, fullUrl, options)
         .toPromise();
       return response;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      throw error; // Relanzar el error para que los consumidores del servicio puedan manejarlo
     }
   }
 }

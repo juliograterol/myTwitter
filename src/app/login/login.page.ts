@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import FetchApi from '../services/fetchapi.service';
 import { AlertController } from '@ionic/angular';
-import { Renderer2 } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginPage {
   constructor(
     private apiService: FetchApi,
     private alertController: AlertController,
-    private renderer: Renderer2,
+    private router: Router,
     private platform: Platform,
     private storage: Storage
   ) {
@@ -45,13 +45,14 @@ export class LoginPage {
           identifier: this.userData.identifier,
           password: this.userData.password,
         },
-        `http://localhost:3000/auth/login`
+        `/auth/login`
       );
 
       if (response && response.data && response.data.token) {
         this.token = response.data.token;
         // Guardar el token en Ionic Storage
         await this.storage.set('token', this.token);
+        this.router.navigateByUrl('tabs');
       } else {
         this.presentAlert(
           'Datos Erroneos',
