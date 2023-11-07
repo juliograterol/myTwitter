@@ -1,24 +1,21 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> Feed </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-segment value="default">
-    <ion-segment-button value="default">
-      <ion-label>Para ti</ion-label>
+  <ion-segment value="global" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="global">
+      <ion-label>Global</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="segment">
+    <ion-segment-button value="following">
       <ion-label>Siguiendo</ion-label>
     </ion-segment-button>
   </ion-segment>
-  <div *ngFor="let tweet of tweets">
-    <app-tweet
-      [content]="tweet.content"
-      [username]="tweet.idUser.username"
-      [fullName]="tweet.idUser.fullName"
-      [createdAt]="tweet.createdAt"
-    ></app-tweet>
+
+  <div *ngIf="tweets">
+    <div *ngFor="let tweet of tweets">
+      <app-tweet
+        [content]="tweet.content"
+        [username]="tweet.idUser.username"
+        [fullName]="tweet.idUser.fullName"
+        [createdAt]="tweet.createdAt"
+      ></app-tweet>
+    </div>
   </div>
 </ion-content>

@@ -1,7 +1,10 @@
 <div class="tweet">
   <div class="tweetBy">
+    <img [src]="profilePicture" />
     <strong>{{ fullName }}</strong>
-    <p>&nbsp;username · {{ createdAt }}</p>
+    <p>
+      &nbsp;<a>@{{ username }}</a> · {{ createdAt }}
+    </p>
   </div>
   <p>{{ content }}</p>
   <div class="options">

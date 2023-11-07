@@ -24,6 +24,12 @@
 .tweetBy p {
   color: #777; /* Color de texto */
   font-size: 14px; /* Tamaño de fuente */
+  line-clamp: 1;
+}
+
+.tweetBy img {
+  height: 25px;
+  width: 25px;
 }
 
 /* Estilos para el contenido del tweet */

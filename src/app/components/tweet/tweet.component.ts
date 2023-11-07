@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TweetComponent implements OnInit {
   @Input() content!: string;
   @Input() username!: string;
+  @Input() profilePicture!: string;
   @Input() fullName!: string;
   @Input() createdAt!: Date;
 
