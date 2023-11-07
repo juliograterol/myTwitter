@@ -7,8 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TweetComponent implements OnInit {
   @Input() content!: string;
-  @Input() idUser!: string;
-  @Input() createdAt!: string; //Cambiar a Date
+  @Input() username!: string;
+  @Input() fullName!: string;
+  @Input() createdAt!: Date;
 
   constructor() {}
 

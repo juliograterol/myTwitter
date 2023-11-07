@@ -4,6 +4,12 @@ import { AlertController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { Router } from '@angular/router';
+import * as jwt_decode from 'jwt-decode';
+
+interface DecodedToken {
+  id: string;
+  // Otras propiedades del token si las hay
+}
 
 @Component({
   selector: 'app-login',
@@ -53,7 +59,12 @@ export class LoginPage {
         // Guardar el token en Ionic Storage
         if (this.token !== undefined) {
           await this.storage.set('token', this.token);
+          const decodedToken: DecodedToken = jwt_decode.jwtDecode(this.token);
+          const userId = decodedToken.id; // Accede a la propiedad userId
+          // Guardar el userId en Ionic Storage
+          await this.storage.set('userId', userId);
         }
+
         this.router.navigateByUrl('tabs');
       } else {
         this.presentAlert(
