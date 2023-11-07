@@ -48,14 +48,12 @@ export class RegisterPage {
         },
         '/auth/register'
       );
-
-      if (response && response.data && response.data.token) {
-        this.token = response.data.token;
-        if (this.token !== undefined) {
-          await this.storage.set('token', this.token);
-        }
-        this.router.navigateByUrl('tabs');
-      } else {
+      if (
+        !this.userData.fullName ||
+        !this.userData.email ||
+        !this.userData.user ||
+        !this.userData.password
+      ) {
         this.presentAlert(
           'Error',
           'No se pudo registrar el usuario. Verifica tus datos e inténtalo nuevamente.',
