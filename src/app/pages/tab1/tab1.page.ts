@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import FetchApi from '../services/fetchapi.service';
+import FetchApi from '../../services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
