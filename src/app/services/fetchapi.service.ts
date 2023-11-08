@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 export default class FetchApi {
   constructor(private http: HttpClient) {}
 
-  private baseUrl = 'http://localhost:3000';
+  // private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'https://long-blue-mackerel.cyclic.app/';
 
   async request(
     method: string,
