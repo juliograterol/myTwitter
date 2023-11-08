@@ -45,6 +45,10 @@ export class LoginPage {
     // Tu código para iniciar sesión
 
     try {
+      if (!this.userData.identifier || !this.userData.password) {
+        this.presentAlert('Debe llenar los campos completos', '', 'OK');
+      }
+
       const response = await this.apiService.request(
         'POST',
         {
@@ -77,7 +81,11 @@ export class LoginPage {
 
       console.log('Respuesta del servidor:', response);
     } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+      this.presentAlert(
+        'Error',
+        'No se logró iniciar sesión, vuelve a intentarlo.',
+        'OK'
+      );
     }
   }
 
