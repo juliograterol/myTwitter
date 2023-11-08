@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import FetchApi from '../services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
-interface Tweet {
-  content: string;
-  idUser: string;
-  createdAt: string; // Cambiar a Date si es más apropiado
-}
 
 @Component({
   selector: 'app-tab1',

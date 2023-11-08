@@ -15,6 +15,7 @@ export class RegisterPage {
     user: '',
     email: '',
     password: '',
+    bio: '',
   };
   token: string | undefined;
 
@@ -38,6 +39,12 @@ export class RegisterPage {
   async register() {
     try {
       // Aquí debes hacer la llamada a la API para el registro del usuario.
+      let userBio;
+      if (!this.userData.bio) {
+        userBio = '';
+      } else {
+        userBio = this.userData.bio;
+      }
       const response = await this.apiService.request(
         'POST',
         {
@@ -45,6 +52,7 @@ export class RegisterPage {
           username: this.userData.user,
           email: this.userData.email,
           password: this.userData.password,
+          bio: userBio,
         },
         '/auth/register'
       );
