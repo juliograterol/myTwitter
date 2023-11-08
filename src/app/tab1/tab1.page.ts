@@ -40,12 +40,10 @@ export class Tab1Page implements OnInit {
 
         if (response && response.data && Array.isArray(response.data)) {
           this.tweets = response.data;
-        } else {
-          this.tweets = [undefined];
         }
       }
     } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+      this.tweets = [];
     }
   }
 
