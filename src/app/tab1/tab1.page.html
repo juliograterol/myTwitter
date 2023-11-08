@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true">
+<ion-header>
   <ion-segment value="global" (ionChange)="onSegmentChanged($event)">
     <ion-segment-button value="global">
       <ion-label>Global</ion-label>
@@ -7,7 +7,9 @@
       <ion-label>Siguiendo</ion-label>
     </ion-segment-button>
   </ion-segment>
+</ion-header>
 
+<ion-content [fullscreen]="true">
   <div *ngIf="tweets">
     <div *ngFor="let tweet of tweets">
       <app-tweet

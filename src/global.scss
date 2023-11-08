@@ -24,7 +24,13 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
+ion-fab {
+  position: absolute;
+  right: 0;
+}
+ion-segment {
+  background-color: #f9f9f9;
+}
 ion-content {
   display: flex;
   align-items: center;
