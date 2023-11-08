@@ -1,0 +1,19 @@
+<div>
+  <div>
+    <strong>{{ userInfo?.fullName }} </strong>
+
+    <!-- Mostrar la imagen solo si isVerified es verdadero -->
+    <img
+      *ngIf="userInfo?.isVerified"
+      src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+      height="15"
+      width="15"
+    />
+
+    <p>@{{ userInfo?.username }}</p>
+    <p>{{ userInfo?.bio }}</p>
+    <div>
+      {{ userInfo?.following }} Siguiendo {{ userInfo?.followers }} Seguidores
+    </div>
+  </div>
+</div>
