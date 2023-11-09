@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import FetchApi from 'src/app/services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -15,7 +16,8 @@ export class Tab2Page implements OnInit {
   constructor(
     private fetchApi: FetchApi,
     private storage: Storage,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -84,6 +86,18 @@ export class Tab2Page implements OnInit {
   }
 
   async goToUser(user: string) {
-    this.router.navigate(['user-profile', user]);
+    const userId = await this.storage.get('userId');
+    if (user === userId) {
+      this.router.navigate(['tabs/tab4']);
+      //si eres tu, redirige a la cuenta propia
+      const toast = await this.toastController.create({
+        message: 'This is you',
+        duration: 1500,
+        position: 'top',
+      });
+      await toast.present();
+    } else {
+      this.router.navigate(['user-profile', user]);
+    }
   }
 }

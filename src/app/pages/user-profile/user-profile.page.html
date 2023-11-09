@@ -1,19 +1,44 @@
-<div>
+<ion-content [fullscreen]="true">
   <div>
-    <strong>{{ userInfo?.fullName }} </strong>
-
-    <!-- Mostrar la imagen solo si isVerified es verdadero -->
-    <img
-      *ngIf="userInfo?.isVerified"
-      src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
-      height="15"
-      width="15"
-    />
-
-    <p>@{{ userInfo?.username }}</p>
-    <p>{{ userInfo?.bio }}</p>
     <div>
-      {{ userInfo?.following }} Siguiendo {{ userInfo?.followers }} Seguidores
+      <strong>{{ userInfo?.fullName }} </strong>
+
+      <!-- Mostrar la imagen solo si isVerified es verdadero -->
+      <img
+        *ngIf="userInfo?.isVerified"
+        src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+        height="15"
+        width="15"
+      />
+
+      <p>@{{ userInfo?.username }}</p>
+      <p>{{ userInfo?.bio }}</p>
+      <div>
+        {{ userInfo?.following }} Siguiendo {{ userInfo?.followers }} Seguidores
+      </div>
     </div>
   </div>
-</div>
+
+  <div *ngIf="tweets">
+    <div *ngFor="let tweet of tweets">
+      <div class="tweet">
+        <div class="tweetBy">
+          <!-- <img [src]="profilePicture" /> -->
+          <strong>{{ tweet.idUser.fullName }}</strong>
+          <p>
+            &nbsp;<a>@{{ tweet.idUser.username }}</a> · {{ tweet.createdAt }}
+          </p>
+        </div>
+        <p>{{ tweet.content }}</p>
+        <div class="options">
+          <button>
+            <ion-icon name="heart-outline"></ion-icon>
+          </button>
+          <button>
+            <ion-icon name="chatbubble-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

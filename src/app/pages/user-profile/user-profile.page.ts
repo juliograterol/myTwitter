@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserProfilePage implements OnInit {
   userInfo: any; // Declarar una propiedad para almacenar los datos de userInfo
+  tweets: any[] = [];
   user: any;
 
   constructor(
@@ -29,17 +30,28 @@ export class UserProfilePage implements OnInit {
 
   async fetchUser() {
     const token = await this.storage.get('token');
-    // const userId = await this.storage.get('userId');
+    if (token) {
+      const userInfo = await this.fetchApi.request(
+        'GET',
+        null,
+        `/user/profile/${this.user}`,
+        token
+      );
+      if (userInfo && userInfo.data) {
+        this.userInfo = userInfo.data; // Asignar userInfo.data a la propiedad userInfo
+      }
+      const response = await this.fetchApi.request(
+        'GET',
+        null,
+        `/tweet/user/${this.user}`,
+        token
+      );
 
-    const userInfo = await this.fetchApi.request(
-      'GET',
-      null,
-      `/user/profile/${this.user}`,
-      token
-    );
-
-    if (userInfo && userInfo.data) {
-      this.userInfo = userInfo.data; // Asignar userInfo.data a la propiedad userInfo
+      if (response && response.data && Array.isArray(response.data)) {
+        this.tweets = response.data;
+      } else {
+        this.tweets = [undefined];
+      }
     }
   }
 }

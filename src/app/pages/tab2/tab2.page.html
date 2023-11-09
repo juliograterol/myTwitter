@@ -6,7 +6,8 @@
     ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-list>
+
+<ion-content [fullscreen]="true">
   <div *ngFor="let user of userList">
     <div class="users">
       <!-- Redirect to user -->
@@ -29,6 +30,4 @@
       </button>
     </div>
   </div>
-</ion-list>
-
-<ion-content class="ion-padding"> </ion-content>
+</ion-content>

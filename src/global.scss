@@ -11,6 +11,10 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+body {
+  background-color: black;
+}
+
 input {
   border: none; // Elimina el borde
   background: transparent; // Establece un fondo transparente
@@ -20,6 +24,9 @@ input {
 
 input:focus {
   border: none; // Elimina el borde en enfoque
+}
+ion-toast {
+  text-align: center;
 }
 
 ion-fab {
@@ -68,20 +75,19 @@ button {
   align-content: center;
   padding: 10px;
 }
-/* Estilos para el contenedor principal del tweet */
+
 .tweet {
-  color: black;
-  border: 1px solid #ddd; /* Borde */
+  color: white;
+  background-color: #121212;
+  border: 1px solid black; /* Borde */
   border-radius: 8px; /* Bordes redondeados */
   padding: 10px; /* Espaciado interno */
   margin-bottom: 10px; /* Margen inferior entre tweets */
   align-items: start;
 }
 
-/* Estilos para el área del nombre del usuario y la fecha del tweet */
 .tweetBy {
   display: flex;
-  //   justify-content: space-between;
   align-items: center;
 }
 
@@ -111,7 +117,7 @@ p {
 .options {
   display: flex;
   //   justify-content: space-around;
-  margin-top: 10px; /* Margen superior */
+  // margin-top: 10px; /* Margen superior */
 }
 
 .options button {
@@ -119,7 +125,6 @@ p {
   border: none; /* Sin borde */
   cursor: pointer; /* Cursor de tipo puntero al pasar el ratón */
   font-size: 16px; /* Tamaño de fuente de los botones */
-  margin-right: 10px; /* Margen derecho entre los botones */
 }
 
 .options button ion-icon {
