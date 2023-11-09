@@ -32,7 +32,7 @@ ion-toast {
 ion-fab {
   position: absolute;
   right: 0;
-  top: 90%;
+  bottom: 0;
 }
 
 ion-segment,
@@ -135,6 +135,7 @@ p {
 .back {
   background: none;
   color: white;
+  font-size: 18px; /* Tamaño de fuente */
   padding: 10px;
 }
 

@@ -13,12 +13,12 @@
         <ion-toolbar>
           <ion-title>New Tweet</ion-title>
           <ion-buttons slot="start">
-            <ion-button (click)="setOpen(false)"
-              ><ion-icon name="close-outline"></ion-icon
-            ></ion-button>
+            <button class="back" (click)="setOpen(false)">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
           </ion-buttons>
           <ion-buttons slot="end">
-            <ion-button (click)="postTweet()">Publicar</ion-button>
+            <button class="back" (click)="postTweet()">Publicar</button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>

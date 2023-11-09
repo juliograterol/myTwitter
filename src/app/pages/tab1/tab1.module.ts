@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 import { TweetComponent } from '../../components/tweet/tweet.component';
-
 import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { NewTweetComponent } from 'src/app/components/new-tweet/new-tweet.component';
 
 @NgModule({
   imports: [
@@ -16,6 +16,6 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
   ],
-  declarations: [Tab1Page, TweetComponent],
+  declarations: [Tab1Page, TweetComponent, NewTweetComponent],
 })
 export class Tab1PageModule {}
