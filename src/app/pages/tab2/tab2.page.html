@@ -1,11 +1,31 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-searchbar></ion-searchbar>
+      <ion-searchbar
+        [ngModel]="searchText"
+        (ngModelChange)="onSearchChange($event)"
+      ></ion-searchbar>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<user-profile></user-profile>
+
+<ion-list>
+  <div *ngFor="let user of userList">
+    <div class="users">
+      <div>
+        <strong>{{ user.fullName }} </strong>
+        <img
+          *ngIf="user.isVerified"
+          src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+          height="15"
+          width="15"
+        />
+      </div>
+      <p>@{{ user.username }}</p>
+      <div>{{ user.followers }} Seguidores</div>
+      <button class="button">Seguir</button>
+    </div>
+  </div>
+</ion-list>
 
 <ion-content class="ion-padding"> </ion-content>
-<app-explore-container name="Tab 2 page"></app-explore-container>
