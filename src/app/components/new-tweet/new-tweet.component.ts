@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import FetchApi from 'src/app/services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
 
@@ -12,6 +12,7 @@ export class NewTweetComponent {
     content: '',
   };
   isModalOpen = false;
+  @ViewChild('tweetInput', { read: ElementRef }) tweetInput!: ElementRef;
 
   constructor(private fetchApi: FetchApi, private storage: Storage) {}
 
@@ -33,7 +34,19 @@ export class NewTweetComponent {
       console.error('Error al realizar la solicitud:', error);
     }
   }
+
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+    if (isOpen && this.tweetInput) {
+      setTimeout(() => {
+        this.tweetInput.nativeElement.focus();
+      }, 500);
+    }
+  }
+
+  focusInput(): void {
+    if (this.tweetInput) {
+      this.tweetInput.nativeElement.focus();
+    }
   }
 }
