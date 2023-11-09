@@ -35,8 +35,9 @@ ion-fab {
   top: 90%;
 }
 
-ion-segment {
-  background-color: black;
+ion-segment,
+ion-header {
+  background-color: #1f1f1f;
 }
 
 ion-content {
@@ -63,7 +64,7 @@ ion-list {
   justify-content: space-between;
 }
 
-button {
+.button {
   width: 80%;
   background-color: transparent;
   padding: 10px;
@@ -78,8 +79,8 @@ button {
 
 .tweet {
   color: white;
-  background-color: #121212;
-  border: 1px solid black; /* Borde */
+  background-color: #1f1f1f;
+  // border: 1px solid black; /* Borde */
   border-radius: 8px; /* Bordes redondeados */
   padding: 10px; /* Espaciado interno */
   margin-bottom: 10px; /* Margen inferior entre tweets */
@@ -116,7 +117,7 @@ p {
 /* Estilos para el área de opciones (botones) */
 .options {
   display: flex;
-  //   justify-content: space-around;
+  justify-content: space-around;
   // margin-top: 10px; /* Margen superior */
 }
 
@@ -129,6 +130,12 @@ p {
 
 .options button ion-icon {
   color: #777; /* Color de ícono */
+}
+
+.back {
+  background: none;
+  color: white;
+  padding: 10px;
 }
 
 .center {

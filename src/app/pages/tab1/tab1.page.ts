@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import FetchApi from '../../services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -11,7 +12,11 @@ export class Tab1Page implements OnInit {
   tweets: any[] = [];
   selectedSegment: string = 'global';
 
-  constructor(private fetchApi: FetchApi, private storage: Storage) {}
+  constructor(
+    private fetchApi: FetchApi,
+    private storage: Storage,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.fetchTweets();
@@ -30,7 +35,6 @@ export class Tab1Page implements OnInit {
         } else if (this.selectedSegment === 'following') {
           endpoint = `/tweet/feed`;
         }
-        console.log(endpoint);
         const response = await this.fetchApi.request(
           'GET',
           null,
@@ -45,6 +49,10 @@ export class Tab1Page implements OnInit {
     } catch (error) {
       this.tweets = [];
     }
+  }
+
+  startFollowing() {
+    this.router.navigate(['/tabs/tab2']);
   }
 
   onSegmentChanged(event: CustomEvent) {

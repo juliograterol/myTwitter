@@ -66,7 +66,6 @@ export class LoginPage {
           const decodedToken: DecodedToken = jwt_decode.jwtDecode(this.token);
           const userId = decodedToken.id; // Accede a la propiedad userId
           // Guardar el userId en Ionic Storage
-          console.log(userId);
           await this.storage.set('userId', userId);
         }
 

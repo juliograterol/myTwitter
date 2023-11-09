@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="tweets">
+  <ng-container *ngIf="tweets && tweets.length > 0; else noTweets">
     <div *ngFor="let tweet of tweets">
       <app-tweet
         [content]="tweet.content"
@@ -19,5 +19,12 @@
         [createdAt]="tweet.createdAt"
       ></app-tweet>
     </div>
-  </div>
+  </ng-container>
+
+  <ng-template #noTweets>
+    <div class="center">
+      <p>No hay tweets disponibles,</p>
+      <a (click)="startFollowing()">Comienza a seguir usuarios!</a>
+    </div>
+  </ng-template>
 </ion-content>

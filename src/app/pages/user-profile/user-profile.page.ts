@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import FetchApi from 'src/app/services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,7 +16,8 @@ export class UserProfilePage implements OnInit {
   constructor(
     private fetchApi: FetchApi,
     private storage: Storage,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.route.params.subscribe((params) => {
       this.user = params['user'];
@@ -53,5 +54,9 @@ export class UserProfilePage implements OnInit {
         this.tweets = [undefined];
       }
     }
+  }
+
+  goBack() {
+    this.router.navigate(['tabs/tab2']);
   }
 }
