@@ -30,7 +30,7 @@
             ></ion-icon
             >{{tweet.likes}}
           </button>
-          <button>
+          <button (click)="goToTweet(tweet._id)">
             <ion-icon name="chatbubble-outline"></ion-icon>
           </button>
         </div>

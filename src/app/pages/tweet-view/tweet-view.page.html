@@ -1,0 +1,26 @@
+<ion-content [fullscreen]="true">
+  <button class="back" (click)="goBack()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </button>
+  <div class="tweet">
+    <div class="tweetBy">
+      <!-- <img [src]="profilePicture" /> -->
+      <strong>{{ tweet.idUser.fullName }}</strong>
+      <p>&nbsp;<a>@{{ tweet.idUser.username }}</a> · {{ tweet.createdAt }}</p>
+    </div>
+    <p>{{ tweet.content }}</p>
+    <div class="options">
+      <!-- <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
+        <ion-icon
+          *ngIf="tweet.isLiked; else notLiked"
+          name="heart"
+          style="color: red"
+        ></ion-icon
+        >{{ tweet.likes }}
+      </button>
+      <button (click)="goToTweet(tweet._id)">
+        <ion-icon name="chatbubble-outline"></ion-icon>
+      </button> -->
+    </div>
+  </div>
+</ion-content>

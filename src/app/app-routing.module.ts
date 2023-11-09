@@ -32,6 +32,14 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard], // Proteger el acceso a 'tabs' con el guardia de ruta
   },
+  {
+    path: 'tweet-view/:tweet',
+    loadChildren: () =>
+      import('./pages/tweet-view/tweet-view.module').then(
+        (m) => m.TweetViewPageModule
+      ),
+    canActivate: [AuthGuard], // Proteger el acceso a 'tabs' con el guardia de ruta
+  },
 ];
 
 @NgModule({

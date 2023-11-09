@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import FetchApi from '../../services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -15,7 +16,8 @@ export class Tab1Page implements OnInit {
   constructor(
     private fetchApi: FetchApi,
     private storage: Storage,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -85,5 +87,23 @@ export class Tab1Page implements OnInit {
   onSegmentChanged(event: CustomEvent) {
     this.selectedSegment = event.detail.value;
     this.fetchTweets();
+  }
+  async goToUser(user: string) {
+    const userId = await this.storage.get('userId');
+    if (user === userId) {
+      this.router.navigate(['tabs/tab4']);
+      //si eres tu, redirige a la cuenta propia
+      const toast = await this.toastController.create({
+        message: 'This is you',
+        duration: 1500,
+        position: 'top',
+      });
+      await toast.present();
+    } else {
+      this.router.navigate(['user-profile', user]);
+    }
+  }
+  async goToTweet(tweet: string) {
+    this.router.navigate(['tweet-view', tweet]);
   }
 }

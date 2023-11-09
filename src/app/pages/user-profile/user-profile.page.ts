@@ -21,7 +21,6 @@ export class UserProfilePage implements OnInit {
   ) {
     this.route.params.subscribe((params) => {
       this.user = params['user'];
-      console.log('usuario: ', this.user); // Imprime 'user'
     });
   }
 
