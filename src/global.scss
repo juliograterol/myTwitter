@@ -122,10 +122,13 @@ p {
 }
 
 .options button {
+  display: flex;
+  flex-direction: row;
   background: none; /* Sin fondo */
   border: none; /* Sin borde */
   cursor: pointer; /* Cursor de tipo puntero al pasar el ratón */
   font-size: 16px; /* Tamaño de fuente de los botones */
+  color: #777; /* Color de ícono */
 }
 
 .options button ion-icon {

@@ -33,8 +33,9 @@ export class Tab4Page implements OnInit {
 
         if (response && response.data && Array.isArray(response.data)) {
           this.tweets = response.data;
+          console.log(this.tweets);
         } else {
-          this.tweets = [undefined];
+          this.tweets = [];
         }
       }
     } catch (error) {

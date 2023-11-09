@@ -20,7 +20,8 @@
               *ngIf="tweet.isLiked; else notLiked"
               name="heart"
               style="color: red"
-            ></ion-icon>
+            ></ion-icon
+            >{{tweet.likes}}
           </button>
           <button>
             <ion-icon name="chatbubble-outline"></ion-icon>
