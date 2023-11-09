@@ -1,14 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-searchbar
-        [ngModel]="searchText"
-        (ngModelChange)="onSearchChange($event)"
-      ></ion-searchbar>
-    </ion-buttons>
+    <ion-searchbar
+      [ngModel]="searchText"
+      (ngModelChange)="onSearchChange($event)"
+    ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
-
 <ion-list>
   <div *ngFor="let user of userList">
     <div class="users">
@@ -23,7 +20,9 @@
       </div>
       <p>@{{ user.username }}</p>
       <div>{{ user.followers }} Seguidores</div>
-      <button class="button">Seguir</button>
+      <button class="button" (click)="Follow(user._id, user.isFollowing)">
+        {{ user.isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+      </button>
     </div>
   </div>
 </ion-list>
