@@ -10,16 +10,32 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngIf="tweets && tweets.length > 0; else noTweets">
+  <div *ngIf="tweets">
     <div *ngFor="let tweet of tweets">
-      <app-tweet
-        [content]="tweet.content"
-        [username]="tweet.idUser.username"
-        [fullName]="tweet.idUser.fullName"
-        [createdAt]="tweet.createdAt"
-      ></app-tweet>
+      <div class="tweet">
+        <div class="tweetBy">
+          <!-- <img [src]="profilePicture" /> -->
+          <strong>{{ tweet.idUser.fullName }}</strong>
+          <p>
+            &nbsp;<a>@{{ tweet.idUser.username }}</a> · {{ tweet.createdAt }}
+          </p>
+        </div>
+        <p>{{ tweet.content }}</p>
+        <div class="options">
+          <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
+            <ion-icon
+              *ngIf="tweet.isLiked; else notLiked"
+              name="heart"
+              style="color: red"
+            ></ion-icon>
+          </button>
+          <button>
+            <ion-icon name="chatbubble-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
     </div>
-  </ng-container>
+  </div>
 
   <ng-template #noTweets>
     <div class="center">
@@ -30,3 +46,7 @@
 </ion-content>
 
 <new-tweet></new-tweet>
+
+<ng-template #notLiked>
+  <ion-icon name="heart-outline"></ion-icon>
+</ng-template>
