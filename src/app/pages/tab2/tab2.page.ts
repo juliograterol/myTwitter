@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import FetchApi from 'src/app/services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -11,7 +12,11 @@ export class Tab2Page implements OnInit {
   userList: any[] = [];
   searchText: string = ''; // Declara searchText como propiedad
 
-  constructor(private fetchApi: FetchApi, private storage: Storage) {}
+  constructor(
+    private fetchApi: FetchApi,
+    private storage: Storage,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.fetchUsers();
@@ -76,5 +81,9 @@ export class Tab2Page implements OnInit {
     } catch (error) {
       console.log('Error: ', error);
     }
+  }
+
+  async goToUser(user: string) {
+    this.router.navigate(['user-profile', user]);
   }
 }

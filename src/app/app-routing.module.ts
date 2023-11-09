@@ -24,6 +24,14 @@ const routes: Routes = [
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
     canActivate: [AuthGuard], // Proteger el acceso a 'tabs' con el guardia de ruta
   },
+  {
+    path: 'user-profile/:user',
+    loadChildren: () =>
+      import('./pages/user-profile/user-profile.module').then(
+        (m) => m.UserProfilePageModule
+      ),
+    canActivate: [AuthGuard], // Proteger el acceso a 'tabs' con el guardia de ruta
+  },
 ];
 
 @NgModule({

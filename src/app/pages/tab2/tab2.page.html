@@ -9,17 +9,21 @@
 <ion-list>
   <div *ngFor="let user of userList">
     <div class="users">
-      <div>
-        <strong>{{ user.fullName }} </strong>
-        <img
-          *ngIf="user.isVerified"
-          src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
-          height="15"
-          width="15"
-        />
+      <!-- Redirect to user -->
+      <div (click)="goToUser(user._id)" class="user">
+        <div>
+          <strong>{{ user.fullName }} </strong>
+          <img
+            *ngIf="user.isVerified"
+            src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+            height="15"
+            width="15"
+          />
+        </div>
+        <p>@{{ user.username }}</p>
+        <div>{{ user.followers }} Seguidores</div>
       </div>
-      <p>@{{ user.username }}</p>
-      <div>{{ user.followers }} Seguidores</div>
+      <!-- Follo User -->
       <button class="button" (click)="Follow(user._id, user.isFollowing)">
         {{ user.isFollowing ? 'Dejar de seguir' : 'Seguir' }}
       </button>
