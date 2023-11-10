@@ -1,7 +1,7 @@
-<div>
+<div class="profile">
   <div>
+    <!-- <img [src]="userInfo?.profilePicture" /> -->
     <strong>{{ userInfo?.fullName }} </strong>
-
     <!-- Mostrar la imagen solo si isVerified es verdadero -->
     <img
       *ngIf="userInfo?.isVerified"
@@ -9,9 +9,15 @@
       height="15"
       width="15"
     />
-
     <p>@{{ userInfo?.username }}</p>
     <p>{{ userInfo?.bio }}</p>
+    <button
+      class="button center"
+      style="margin-bottom: 10px"
+      (click)="editProfile()"
+    >
+      Editar Perfil
+    </button>
     <div>
       {{ userInfo?.following }} Siguiendo {{ userInfo?.followers }} Seguidores
     </div>

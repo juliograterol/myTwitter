@@ -40,6 +40,14 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard], // Proteger el acceso a 'tabs' con el guardia de ruta
   },
+  {
+    path: 'edit-profile',
+    loadChildren: () =>
+      import('./pages/edit-profile/edit-profile.module').then(
+        (m) => m.EditProfilePageModule
+      ),
+    canActivate: [AuthGuard], // Proteger el acceso a 'tabs' con el guardia de ruta
+  },
 ];
 
 @NgModule({

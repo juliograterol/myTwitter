@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import FetchApi from 'src/app/services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'my-profile',
@@ -10,7 +11,11 @@ import { Storage } from '@ionic/storage-angular';
 export class MyProfileComponent implements OnInit {
   userInfo: any; // Declarar una propiedad para almacenar los datos de userInfo
 
-  constructor(private fetchApi: FetchApi, private storage: Storage) {}
+  constructor(
+    private fetchApi: FetchApi,
+    private storage: Storage,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.fetchMyUser();
@@ -30,5 +35,9 @@ export class MyProfileComponent implements OnInit {
     if (userInfo && userInfo.data) {
       this.userInfo = userInfo.data; // Asignar userInfo.data a la propiedad userInfo
     }
+  }
+
+  editProfile() {
+    this.router.navigate(['edit-profile']);
   }
 }
