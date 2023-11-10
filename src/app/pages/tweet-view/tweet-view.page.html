@@ -3,14 +3,14 @@
     <ion-icon name="chevron-back-outline"></ion-icon>
   </button>
   <div class="tweet">
-    <div class="tweetBy">
-      <!-- <img [src]="profilePicture" /> -->
-      <strong>{{ tweet.idUser.fullName }}</strong>
+    <!-- <div class="tweetBy"> -->
+    <!-- <img [src]="profilePicture" /> -->
+    <!-- <strong>{{ tweet.idUser.fullName }}</strong>
       <p>&nbsp;<a>@{{ tweet.idUser.username }}</a> · {{ tweet.createdAt }}</p>
     </div>
     <p>{{ tweet.content }}</p>
     <div class="options">
-      <!-- <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
+      <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
         <ion-icon
           *ngIf="tweet.isLiked; else notLiked"
           name="heart"
@@ -20,7 +20,7 @@
       </button>
       <button (click)="goToTweet(tweet._id)">
         <ion-icon name="chatbubble-outline"></ion-icon>
-      </button> -->
-    </div>
+      </button>
+    </div> -->
   </div>
 </ion-content>
