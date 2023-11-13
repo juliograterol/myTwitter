@@ -11,6 +11,7 @@ import FetchApi from 'src/app/services/fetchapi.service';
 export class TweetViewPage implements OnInit {
   tweetId: any;
   tweet: any;
+  user: any;
   constructor(
     private fetchApi: FetchApi,
     private storage: Storage,
@@ -37,11 +38,44 @@ export class TweetViewPage implements OnInit {
       );
       if (tweetInfo && tweetInfo.data) {
         this.tweet = tweetInfo.data;
+        const userInfo = await this.fetchApi.request(
+          'GET',
+          null,
+          `/user/profile/${this.tweet.idUser}`,
+          token
+        );
+        this.user = userInfo.data;
+        console.log('usuario: ', userInfo.data);
       }
       console.log(tweetInfo);
     }
   }
-
+  async LikeTweet(tweetId: string, isLiked: boolean) {
+    try {
+      const token = await this.storage.get('token');
+      const userId = await this.storage.get('userId');
+      let endpoint = 'like';
+      if (!isLiked) {
+        endpoint = 'like';
+      } else {
+        endpoint = 'dislike';
+      }
+      console.log({
+        userId: userId,
+        tweetId: tweetId,
+      });
+      const likeTweet = await this.fetchApi.request(
+        'POST',
+        {
+          userId: userId,
+          tweetId: tweetId,
+        },
+        `/${endpoint}`,
+        token
+      );
+      this.fetchTweet();
+    } catch (error) {}
+  }
   goBack() {
     this.router.navigate(['tabs/tab1']);
   }
