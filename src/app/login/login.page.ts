@@ -28,7 +28,8 @@ export class LoginPage {
     private alertController: AlertController,
     private router: Router,
     private platform: Platform,
-    private storage: Storage
+    private storage: Storage,
+    private fetchApi: FetchApi
   ) {
     this.platform.ready().then(() => {
       this.initStorage();
@@ -39,6 +40,19 @@ export class LoginPage {
     this.storage = await this.storage.create();
     // Recuperar el token si ya está almacenado
     this.token = await this.storage.get('token');
+  }
+
+  async redirectTo(firstLogin: boolean) {
+    if (!firstLogin) {
+      this.router.navigateByUrl('edit-profile');
+      this.presentAlert(
+        'Completa tu perfil!',
+        'Puedes agregar una biografia y una imagen de perfil',
+        'OK'
+      );
+    } else {
+      this.router.navigateByUrl('tabs');
+    }
   }
 
   async login() {
@@ -69,7 +83,7 @@ export class LoginPage {
           await this.storage.set('userId', userId);
         }
 
-        this.router.navigateByUrl('tabs');
+        this.redirectTo(response.data.firstLogin);
       } else {
         this.presentAlert(
           'Datos Erroneos',

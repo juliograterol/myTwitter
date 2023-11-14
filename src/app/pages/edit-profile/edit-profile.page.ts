@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AlertController } from '@ionic/angular';
+import { url } from 'inspector';
+import { Storage } from '@ionic/storage-angular';
+import FetchApi from 'src/app/services/fetchapi.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,10 +20,57 @@ export class EditProfilePage implements OnInit {
     password: '',
     bio: '',
   };
-  constructor(private router: Router) {}
+
+  constructor(
+    private router: Router,
+    private fireStorage: AngularFireStorage,
+    private auth: AngularFireAuth,
+    private alertController: AlertController,
+    private storage: Storage,
+    private fetchApi: FetchApi
+  ) {}
+
+  async onFileChange(event: any) {
+    const file = event.target.files[0];
+
+    // Verificar si el usuario está autenticado
+    if (file) {
+      const path = `/${file.name}`;
+      const uploadTask = await this.fireStorage.upload(path, file);
+      const url = await uploadTask.ref.getDownloadURL();
+      console.log(url);
+
+      const token = await this.storage.get('token');
+      const userId = await this.storage.get('userId');
+      const response = await this.fetchApi.request(
+        'PUT',
+        {
+          profilePicture: url,
+          userId: userId,
+        },
+        `/user`,
+        token
+      );
+      console.log(response);
+    } else {
+      console.log('No se seleccionó un archivo.');
+    }
+  }
 
   ngOnInit() {}
+
   goBack() {
+    this.presentAlert('Desea salir sin guardar los cambios?', '', 'SALIR');
     this.router.navigate(['tabs/tab4']);
+  }
+
+  async presentAlert(header: string, message: string, btnText: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: [btnText],
+    });
+
+    await alert.present();
   }
 }

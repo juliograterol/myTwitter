@@ -11,7 +11,16 @@ import FetchApi from './services/fetchapi.service';
 import { IonicStorageModule } from '@ionic/storage-angular'; // Importa el módulo de Ionic Storage
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { environment } from 'src/environments/environment';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyBRG-DALWDfyDyR2namzhNT-7sFlQgAq8g',
+  authDomain: 'mytwitter-c9c02.firebaseapp.com',
+  projectId: 'mytwitter-c9c02',
+  storageBucket: 'mytwitter-c9c02.appspot.com',
+  messagingSenderId: '34051252426',
+  appId: '1:34051252426:web:bb08b6892dac08fcead433',
+  measurementId: 'G-NTKZC61HKY',
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +30,7 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     HttpClientModule,
     IonicStorageModule.forRoot(), // Configura Ionic Storage en tu módulo
-    // AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireStorageModule,
   ],
   providers: [

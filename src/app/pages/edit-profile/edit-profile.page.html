@@ -5,6 +5,7 @@
   <form class="container">
     <ion-title><strong>Editar Perfil</strong></ion-title>
     <ion-list>
+      <input type="file" (change)="onFileChange($event)" />
       <ion-item>
         <ion-label position="floating">Nombre Completo</ion-label>
         <ion-input
