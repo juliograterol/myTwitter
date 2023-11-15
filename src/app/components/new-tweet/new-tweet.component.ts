@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import FetchApi from 'src/app/services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'new-tweet',
@@ -12,9 +14,16 @@ export class NewTweetComponent {
     content: '',
   };
   isModalOpen = false;
+  selectedFiles: string[] = [];
+  selectedFileNames: string[] = [];
+
   @ViewChild('tweetInput', { read: ElementRef }) tweetInput!: ElementRef;
 
-  constructor(private fetchApi: FetchApi, private storage: Storage) {}
+  constructor(
+    private fetchApi: FetchApi,
+    private storage: Storage,
+    private fireStorage: AngularFireStorage
+  ) {}
 
   async postTweet() {
     try {
@@ -24,6 +33,7 @@ export class NewTweetComponent {
         'POST',
         {
           content: this.tweetContent.content,
+          attachmentUrls: this.selectedFiles,
           userId: userId,
         },
         `/tweet/`,
@@ -47,6 +57,20 @@ export class NewTweetComponent {
   focusInput(): void {
     if (this.tweetInput) {
       this.tweetInput.nativeElement.focus();
+    }
+  }
+
+  async handleFileInput(event: any) {
+    // Manejar la selección de archivos y limitar a 4 archivos
+    const files = event.target.files;
+
+    for (let i = 0; i < Math.min(files.length, 4); i++) {
+      const file = files[i];
+      const path = `/${file.name}`;
+      const uploadTask = await this.fireStorage.upload(path, file);
+      const url = await uploadTask.ref.getDownloadURL();
+      this.selectedFiles.push(url);
+      this.selectedFileNames.push(file.name); // Agregar el nombre del archivo al nuevo array
     }
   }
 }

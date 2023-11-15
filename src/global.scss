@@ -74,12 +74,29 @@ ion-list {
   border: 2px solid white;
   border-radius: 100px;
 }
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
 .minProfilePicture {
   height: auto;
   width: 50%;
   overflow: hidden; // Asegúrate de que cualquier parte de la imagen fuera del contenedor esté oculta
   border-radius: 100%;
 }
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(40%, 1fr)
+  ); /* ajusta el tamaño de las columnas según el contenido, con un mínimo de 200px */
+  grid-gap: 5px; /* espacio entre las celdas del grid */
+  grid-auto-flow: row; /* especifica que los elementos deben fluir en filas */
+}
+
 .profilePicture,
 .tweetBy img {
   overflow: hidden; // Asegúrate de que cualquier parte de la imagen fuera del contenedor esté oculta

@@ -20,6 +20,11 @@
           </p>
         </div>
         <p>{{ tweet.content }}</p>
+        <div class="grid-container">
+          <div *ngFor="let imageUrl of tweet.attachmentUrls" class="grid-item">
+            <img [src]="imageUrl" alt="Tweet Image" />
+          </div>
+        </div>
         <div class="options">
           <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
             <ion-icon

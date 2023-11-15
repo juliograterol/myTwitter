@@ -43,23 +43,13 @@ export class LoginPage {
   }
 
   async redirectTo(firstLogin: boolean) {
-    if (!firstLogin) {
-      this.router.navigateByUrl('edit-profile');
+    if (firstLogin) {
+      // this.router.navigateByUrl('edit-profile');
+      this.router.navigateByUrl('tabs');
       this.presentAlert(
         'Completa tu perfil!',
         'Puedes agregar una biografia y una imagen de perfil',
         'OK'
-      );
-      const token = await this.storage.get('token');
-      const userId = await this.storage.get('userId');
-      await this.fetchApi.request(
-        'PUT',
-        {
-          firstLogin: true,
-          userId: userId,
-        },
-        `/user`,
-        token
       );
     } else {
       this.router.navigateByUrl('tabs');

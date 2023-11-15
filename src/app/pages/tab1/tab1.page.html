@@ -27,8 +27,16 @@
           </p>
         </div>
         <p>{{ tweet.content }}</p>
+        <!-- Attachments Urls: Image -->
+        <div class="grid-container">
+          <div *ngFor="let imageUrl of tweet.attachmentUrls" class="grid-item">
+            <img [src]="imageUrl" alt="Tweet Image" />
+          </div>
+        </div>
+        <!-- Attachments Urls: Image -->
         <div class="options">
           <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
+            <!-- Like -->
             <ion-icon
               *ngIf="tweet.isLiked; else notLiked"
               name="heart"
@@ -57,3 +65,5 @@
 <ng-template #notLiked>
   <ion-icon name="heart-outline"></ion-icon>
 </ng-template>
+
+<ng-template #gridImage> </ng-template>

@@ -24,11 +24,21 @@
       <ion-content class="ion-padding">
         <input [(ngModel)]="tweetContent.content" #tweetInput />
       </ion-content>
+      <!-- Aqui van las imagenes -->
       <ion-footer>
-        <ion-input type="file">
+        <!-- Lista de nombres de archivos -->
+        <div *ngIf="selectedFileNames.length > 0">
+          <p>Archivos seleccionados:</p>
+          <ul>
+            <li *ngFor="let fileName of selectedFileNames">{{ fileName }}</li>
+          </ul>
+        </div>
+        <!-- Imagenes -->
+        <ion-input type="file" (change)="handleFileInput($event)" multiple>
           <ion-icon name="attach" class="attach"></ion-icon>
         </ion-input>
       </ion-footer>
+      <!--  -->
     </ng-template>
   </ion-modal>
 </ion-content>

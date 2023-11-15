@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AlertController } from '@ionic/angular';
-import { url } from 'inspector';
 import { Storage } from '@ionic/storage-angular';
 import FetchApi from 'src/app/services/fetchapi.service';
 
@@ -24,7 +22,6 @@ export class EditProfilePage implements OnInit {
   constructor(
     private router: Router,
     private fireStorage: AngularFireStorage,
-    private auth: AngularFireAuth,
     private alertController: AlertController,
     private storage: Storage,
     private fetchApi: FetchApi
