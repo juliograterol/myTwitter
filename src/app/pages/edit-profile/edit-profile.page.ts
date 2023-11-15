@@ -12,11 +12,13 @@ import FetchApi from 'src/app/services/fetchapi.service';
 })
 export class EditProfilePage implements OnInit {
   userData = {
+    profilePicture: '',
     fullName: '',
     user: '',
     email: '',
     password: '',
     bio: '',
+    userId: '',
   };
 
   constructor(
@@ -29,40 +31,59 @@ export class EditProfilePage implements OnInit {
 
   async onFileChange(event: any) {
     const file = event.target.files[0];
-    const token = await this.storage.get('token');
-    const userId = await this.storage.get('userId');
-    // Verificar si el usuario está autenticado
     if (file) {
       const path = `/${file.name}`;
       const uploadTask = await this.fireStorage.upload(path, file);
       const url = await uploadTask.ref.getDownloadURL();
-      console.log(url);
+      this.userData.profilePicture = url;
+    } else {
+      this.userData.profilePicture =
+        'https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg';
+    }
+  }
+
+  async EditProfile() {
+    try {
+      const token = await this.storage.get('token');
       const response = await this.fetchApi.request(
         'PUT',
-        {
-          profilePicture: url,
-          userId: userId,
-        },
+        this.userData,
         `/user`,
         token
       );
       console.log(response);
-    } else {
-      const response = await this.fetchApi.request(
-        'PUT',
-        {
-          profilePicture:
-            'https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg',
-          userId: userId,
-        },
-        `/user`,
-        token
-      );
-      console.log('No se seleccionó un archivo.');
+      this.presentAlert('Cambios Guardados!', '', 'OK');
+      this.router.navigate(['tabs/tab4']);
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getOldData();
+  }
+
+  async getOldData() {
+    try {
+      const token = await this.storage.get('token');
+      const userId = await this.storage.get('userId');
+
+      const userOld = await this.fetchApi.request(
+        'GET',
+        null,
+        `/user/profile/${userId}`,
+        token
+      );
+
+      if (userOld && userOld.data) {
+        this.userData = userOld.data;
+        this.userData.userId = userId;
+        console.log(this.userData);
+      }
+    } catch (error) {
+      console.log('Error obteniendo datos del usuario: ', error);
+    }
+  }
 
   goBack() {
     this.presentAlert('Desea salir sin guardar los cambios?', '', 'SALIR');
