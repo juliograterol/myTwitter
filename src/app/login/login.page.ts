@@ -50,6 +50,17 @@ export class LoginPage {
         'Puedes agregar una biografia y una imagen de perfil',
         'OK'
       );
+      const token = await this.storage.get('token');
+      const userId = await this.storage.get('userId');
+      await this.fetchApi.request(
+        'PUT',
+        {
+          firstLogin: true,
+          userId: userId,
+        },
+        `/user`,
+        token
+      );
     } else {
       this.router.navigateByUrl('tabs');
     }

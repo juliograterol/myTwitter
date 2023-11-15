@@ -4,8 +4,14 @@
   </button>
   <div class="tweet">
     <div class="tweetBy">
-      <!-- <img [src]="profilePicture" /> -->
+      <img [src]="user?.profilePicture" />
       <strong>{{ user?.fullName }}</strong>
+      <img
+        *ngIf="user?.isVerified"
+        src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+        height="15"
+        width="15"
+      />
       <p>&nbsp;<a>@{{ user?.username }}</a> · {{ tweet.createdAt }}</p>
     </div>
     <p>{{ tweet.content }}</p>

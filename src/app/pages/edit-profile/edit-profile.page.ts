@@ -32,16 +32,14 @@ export class EditProfilePage implements OnInit {
 
   async onFileChange(event: any) {
     const file = event.target.files[0];
-
+    const token = await this.storage.get('token');
+    const userId = await this.storage.get('userId');
     // Verificar si el usuario está autenticado
     if (file) {
       const path = `/${file.name}`;
       const uploadTask = await this.fireStorage.upload(path, file);
       const url = await uploadTask.ref.getDownloadURL();
       console.log(url);
-
-      const token = await this.storage.get('token');
-      const userId = await this.storage.get('userId');
       const response = await this.fetchApi.request(
         'PUT',
         {
@@ -53,6 +51,16 @@ export class EditProfilePage implements OnInit {
       );
       console.log(response);
     } else {
+      const response = await this.fetchApi.request(
+        'PUT',
+        {
+          profilePicture:
+            'https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg',
+          userId: userId,
+        },
+        `/user`,
+        token
+      );
       console.log('No se seleccionó un archivo.');
     }
   }

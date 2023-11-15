@@ -12,6 +12,7 @@
     <div class="users">
       <!-- Redirect to user -->
       <div (click)="goToUser(user._id)" class="user">
+        <img [src]="user.profilePicture" class="minProfilePicture" />
         <div>
           <strong>{{ user.fullName }} </strong>
           <img

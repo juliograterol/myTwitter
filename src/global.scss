@@ -74,6 +74,19 @@ ion-list {
   border: 2px solid white;
   border-radius: 100px;
 }
+.minProfilePicture {
+  height: auto;
+  width: 50%;
+  overflow: hidden; // Asegúrate de que cualquier parte de la imagen fuera del contenedor esté oculta
+  border-radius: 100%;
+}
+.profilePicture,
+.tweetBy img {
+  overflow: hidden; // Asegúrate de que cualquier parte de la imagen fuera del contenedor esté oculta
+  height: auto;
+  width: 100%;
+  border-radius: 100%;
+}
 
 .container {
   align-content: center;
