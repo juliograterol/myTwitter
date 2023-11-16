@@ -12,6 +12,7 @@ import { ToastController } from '@ionic/angular';
 export class Tab2Page implements OnInit {
   userList: any[] = [];
   searchText: string = ''; // Declara searchText como propiedad
+  userId: any;
 
   constructor(
     private fetchApi: FetchApi,
@@ -32,6 +33,7 @@ export class Tab2Page implements OnInit {
   async fetchUsers() {
     try {
       const userId = await this.storage.get('userId');
+      this.userId = userId;
       let endpoint = `/user/data/allUsers/${userId}`;
       if (this.searchText !== '') {
         endpoint = `/user/search/${userId}/${this.searchText}`;
