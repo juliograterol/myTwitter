@@ -28,7 +28,7 @@ export class UserProfileComponent implements OnInit {
     );
 
     if (userInfo && userInfo.data) {
-      this.userInfo = userInfo.data; // Asignar userInfo.data a la propiedad userInfo
+      this.userInfo = userInfo.data;
     }
   }
 }

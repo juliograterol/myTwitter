@@ -14,7 +14,7 @@ export class EditProfilePage implements OnInit {
   userData = {
     profilePicture: '',
     fullName: '',
-    user: '',
+    username: '',
     email: '',
     password: '',
     bio: '',
@@ -51,7 +51,6 @@ export class EditProfilePage implements OnInit {
         `/user`,
         token
       );
-      console.log(response);
       this.presentAlert('Cambios Guardados!', '', 'OK');
       this.router.navigate(['tabs/tab4']);
     } catch (error) {
@@ -78,7 +77,6 @@ export class EditProfilePage implements OnInit {
       if (userOld && userOld.data) {
         this.userData = userOld.data;
         this.userData.userId = userId;
-        console.log(this.userData);
       }
     } catch (error) {
       console.log('Error obteniendo datos del usuario: ', error);

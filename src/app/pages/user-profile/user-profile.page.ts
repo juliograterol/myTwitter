@@ -38,7 +38,8 @@ export class UserProfilePage implements OnInit {
         token
       );
       if (userInfo && userInfo.data) {
-        this.userInfo = userInfo.data; // Asignar userInfo.data a la propiedad userInfo
+        this.userInfo = userInfo.data;
+        console.log(userInfo.data);
       }
       const response = await this.fetchApi.request(
         'GET',
@@ -80,6 +81,38 @@ export class UserProfilePage implements OnInit {
       );
       this.fetchUser();
     } catch (error) {}
+  }
+
+  async Follow(idFollowing: string, isFollowing: boolean) {
+    try {
+      const token = await this.storage.get('token');
+      const userId = await this.storage.get('userId');
+      let endpoint = 'follow';
+
+      if (!isFollowing) {
+        endpoint = 'follow';
+      } else {
+        endpoint = 'unfollow';
+      }
+
+      console.log({
+        idFollowing: idFollowing,
+        userId: userId,
+      });
+
+      const follow = await this.fetchApi.request(
+        'POST',
+        {
+          idFollowing: idFollowing,
+          userId: userId,
+        },
+        `/${endpoint}`,
+        token
+      );
+      this.fetchUser();
+    } catch (error) {
+      console.log('Error: ', error);
+    }
   }
 
   goBack() {

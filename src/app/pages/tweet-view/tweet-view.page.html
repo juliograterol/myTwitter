@@ -1,8 +1,9 @@
-<ion-content [fullscreen]="true">
+<ion-content>
   <button class="back" (click)="goBack()">
     <ion-icon name="chevron-back-outline"></ion-icon>
   </button>
   <div class="tweet">
+    <ion-icon name="ellipsis-vertical"></ion-icon>
     <div class="tweetBy">
       <img [src]="tweet.idUser.profilePicture" />
       <strong>{{ tweet.idUser.fullName }}</strong>

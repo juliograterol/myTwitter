@@ -4,6 +4,7 @@
   </button>
   <div class="profile">
     <div>
+      <img [src]="userInfo?.profilePicture" class="profilePicture" />
       <strong>{{ userInfo?.fullName }} </strong>
 
       <!-- Mostrar la imagen solo si isVerified es verdadero -->
@@ -16,6 +17,9 @@
 
       <p>@{{ userInfo?.username }}</p>
       <p>{{ userInfo?.bio }}</p>
+      <button class="button" (click)="Follow(user, userInfo?.isFollowing)">
+        {{ userInfo?.isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+      </button>
       <div>
         {{ userInfo?.following }} Siguiendo {{ userInfo?.followers }} Seguidores
       </div>

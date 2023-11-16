@@ -15,6 +15,7 @@ export class TweetViewPage implements OnInit {
   tweet: any;
   user: any;
   tweets: any[] = [];
+  userId: any;
 
   constructor(
     private fetchApi: FetchApi,
