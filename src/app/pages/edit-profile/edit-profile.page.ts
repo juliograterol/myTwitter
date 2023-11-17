@@ -51,7 +51,7 @@ export class EditProfilePage implements OnInit {
         `/user`,
         token
       );
-      this.presentAlert('Cambios Guardados!', '', 'OK');
+      this.presentAlert('Cambios Guardados!', '', [{ text: 'OK' }]);
       this.router.navigate(['tabs/tab4']);
     } catch (error) {
       console.log(error);
@@ -84,15 +84,29 @@ export class EditProfilePage implements OnInit {
   }
 
   goBack() {
-    this.presentAlert('Desea salir sin guardar los cambios?', '', 'SALIR');
-    this.router.navigate(['tabs/tab4']);
+    this.presentAlert('Desea salir sin guardar los cambios?', '', [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          console.log('Alert canceled');
+        },
+      },
+      {
+        text: 'SALIR',
+        role: 'confirm',
+        handler: () => {
+          this.router.navigate(['tabs/tab4']);
+        },
+      },
+    ]);
   }
 
-  async presentAlert(header: string, message: string, btnText: string) {
+  async presentAlert(header: string, message: string, buttons: any[]) {
     const alert = await this.alertController.create({
       header: header,
       message: message,
-      buttons: [btnText],
+      buttons: buttons,
     });
 
     await alert.present();

@@ -1,9 +1,20 @@
-<ion-content [fullscreen]="true">
+<ion-content>
   <button class="back" (click)="goBack()">
     <ion-icon name="chevron-back-outline"></ion-icon>
   </button>
-  <div class="tweet">
-    <ion-icon name="ellipsis-vertical"></ion-icon>
+  <div class="tweet" *ngIf="tweet">
+    <div *ngIf="tweet.idUser._id === userId">
+      <button id="click-trigger" class="back">
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </button>
+      <ion-popover trigger="click-trigger" triggerAction="click">
+        <ng-template>
+          <button class="back" (click)="deleteConfirmation()">
+            Eliminar Tweet
+          </button>
+        </ng-template>
+      </ion-popover>
+    </div>
     <div class="tweetBy" (click)="goToUser(tweet.idUser._id)">
       <img [src]="tweet.idUser.profilePicture" />
       <strong>{{ tweet.idUser.fullName }}</strong>
@@ -87,7 +98,7 @@
 </ion-fab>
 
 <!-- MODAL -->
-<ion-content class="ion-padding">
+<div>
   <ion-modal [isOpen]="isModalOpen" (click)="focusInput()">
     <ng-template>
       <ion-header>
@@ -123,4 +134,4 @@
       <!--  -->
     </ng-template>
   </ion-modal>
-</ion-content>
+</div>

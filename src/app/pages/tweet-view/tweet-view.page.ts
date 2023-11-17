@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import FetchApi from 'src/app/services/fetchapi.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tweet-view',
@@ -13,7 +13,6 @@ import { ToastController } from '@ionic/angular';
 export class TweetViewPage implements OnInit {
   tweetId: any;
   tweet: any;
-  user: any;
   tweets: any[] = [];
   userId: any;
 
@@ -23,6 +22,7 @@ export class TweetViewPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fireStorage: AngularFireStorage,
+    private alertController: AlertController,
     private toastController: ToastController
   ) {
     this.route.params.subscribe((params) => {
@@ -39,6 +39,7 @@ export class TweetViewPage implements OnInit {
   async fetchTweet() {
     try {
       const token = await this.storage.get('token');
+      const userId = await this.storage.get('userId');
       if (token) {
         const tweetInfo = await this.fetchApi.request(
           'GET',
@@ -46,17 +47,8 @@ export class TweetViewPage implements OnInit {
           `/tweet/${this.tweetId}`,
           token
         );
-        if (tweetInfo && tweetInfo.data) {
-          this.tweet = tweetInfo.data;
-          const userInfo = await this.fetchApi.request(
-            'GET',
-            null,
-            `/user/profile/${this.tweet.idUser}`,
-            token
-          );
-          // this.user = userInfo.data;
-          console.log('usuario: ', userInfo.data);
-        }
+        this.tweet = tweetInfo.data;
+        this.userId = userId;
         console.log(tweetInfo);
       }
     } catch (error) {
@@ -83,6 +75,60 @@ export class TweetViewPage implements OnInit {
       }
     } catch (error) {
       this.tweets = [];
+    }
+  }
+
+  async deleteConfirmation() {
+    this.chooseAlert(
+      'Estas seguro de querer borrar este tweet?',
+      'Una vez borrado, no se podra recuperar',
+      [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Alert canceled');
+          },
+        },
+        {
+          text: 'Eliminar',
+          role: 'confirm',
+          handler: () => {
+            console.log('Alert confirmed');
+            this.deleteTweet();
+          },
+        },
+      ]
+    );
+  }
+
+  async deleteTweet() {
+    try {
+      const token = await this.storage.get('token');
+      const userId = await this.storage.get('userId');
+      const deletedTweet = await this.fetchApi.request(
+        'DELETE',
+        null,
+        `/tweet/${this.tweetId}/${userId}`,
+        token
+      );
+      this.goBack();
+      this.chooseAlert('Tweet ha sido eliminado con exito', '', [
+        {
+          text: 'OK',
+        },
+      ]);
+    } catch (error) {
+      this.chooseAlert(
+        'No se ha podido eliminar el tweet',
+        'Intentalo más tarde.',
+        [
+          {
+            text: 'Aceptar',
+          },
+        ]
+      );
+      console.log('No se borro el tweet: ', error);
     }
   }
 
@@ -192,5 +238,16 @@ export class TweetViewPage implements OnInit {
   }
   async goToTweet(tweet: string) {
     this.router.navigate(['tweet-view', tweet]);
+  }
+
+  //Alerta
+  async chooseAlert(header: string, message: string, buttons: any[]) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: buttons,
+    });
+
+    await alert.present();
   }
 }
