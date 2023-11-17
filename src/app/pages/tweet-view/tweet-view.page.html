@@ -1,10 +1,10 @@
-<ion-content>
+<ion-content [fullscreen]="true">
   <button class="back" (click)="goBack()">
     <ion-icon name="chevron-back-outline"></ion-icon>
   </button>
   <div class="tweet">
     <ion-icon name="ellipsis-vertical"></ion-icon>
-    <div class="tweetBy">
+    <div class="tweetBy" (click)="goToUser(tweet.idUser._id)">
       <img [src]="tweet.idUser.profilePicture" />
       <strong>{{ tweet.idUser.fullName }}</strong>
       <img
@@ -36,7 +36,7 @@
   <div *ngIf="tweets">
     <div *ngFor="let tweet of tweets">
       <div class="tweet">
-        <div class="tweetBy">
+        <div class="tweetBy" (click)="goToUser(tweet.idUser._id)">
           <img [src]="tweet.idUser.profilePicture" />
           <strong>{{ tweet.idUser.fullName }}</strong>
           <img
