@@ -23,6 +23,13 @@ export class Tab1Page implements OnInit {
   ngOnInit() {
     this.fetchTweets();
   }
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+      this.fetchTweets();
+    }, 2000);
+  }
 
   async fetchTweets() {
     try {

@@ -3,6 +3,7 @@ import FetchApi from 'src/app/services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'new-tweet',
@@ -22,7 +23,8 @@ export class NewTweetComponent {
   constructor(
     private fetchApi: FetchApi,
     private storage: Storage,
-    private fireStorage: AngularFireStorage
+    private fireStorage: AngularFireStorage,
+    private alertController: AlertController
   ) {}
 
   async postTweet() {
@@ -60,6 +62,26 @@ export class NewTweetComponent {
     }
   }
 
+  async postConfirmation() {
+    this.chooseAlert('Estas seguro de querer publicar este tweet?', '', [
+      {
+        text: 'Seguir escribiendo',
+        role: 'cancel',
+        handler: () => {
+          console.log('Alert canceled');
+        },
+      },
+      {
+        text: 'Publicar',
+        role: 'confirm',
+        handler: () => {
+          console.log('Alert confirmed');
+          this.postTweet();
+        },
+      },
+    ]);
+  }
+
   async handleFileInput(event: any) {
     // Manejar la selección de archivos y limitar a 4 archivos
     const files = event.target.files;
@@ -72,5 +94,14 @@ export class NewTweetComponent {
       this.selectedFiles.push(url);
       this.selectedFileNames.push(file.name); // Agregar el nombre del archivo al nuevo array
     }
+  }
+  async chooseAlert(header: string, message: string, buttons: any[]) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: buttons,
+    });
+
+    await alert.present();
   }
 }

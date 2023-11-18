@@ -114,6 +114,9 @@ export class UserProfilePage implements OnInit {
       console.log('Error: ', error);
     }
   }
+  async goToTweet(tweet: string) {
+    this.router.navigate(['tweet-view', tweet]);
+  }
 
   goBack() {
     this.router.navigate(['tabs/tab2']);

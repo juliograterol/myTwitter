@@ -17,12 +17,16 @@
             </button>
           </ion-buttons>
           <ion-buttons slot="end">
-            <button class="back" (click)="postTweet()">Publicar</button>
+            <button class="back" (click)="postConfirmation()">Publicar</button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <input [(ngModel)]="tweetContent.content" #tweetInput />
+        <input
+          [(ngModel)]="tweetContent.content"
+          #tweetInput
+          placeholder="Escribe lo que tengas en mente..."
+        />
       </ion-content>
       <!-- Aqui van las imagenes -->
       <ion-footer>

@@ -24,6 +24,13 @@ export class Tab2Page implements OnInit {
   ngOnInit() {
     this.fetchUsers();
   }
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+      this.fetchUsers();
+    }, 2000);
+  }
 
   async onSearchChange(event: any) {
     this.searchText = event;

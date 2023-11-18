@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import FetchApi from '../../services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab4',
@@ -12,10 +13,21 @@ export class Tab4Page implements OnInit {
   tweets: any[] = [];
   selectedSegment: string = 'global';
 
-  constructor(private fetchApi: FetchApi, private storage: Storage) {}
+  constructor(
+    private fetchApi: FetchApi,
+    private storage: Storage,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.fetchUserData();
+  }
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+      this.fetchUserData();
+    }, 2000);
   }
 
   async fetchUserData() {
@@ -67,5 +79,8 @@ export class Tab4Page implements OnInit {
       );
       this.fetchUserData();
     } catch (error) {}
+  }
+  async goToTweet(tweet: string) {
+    this.router.navigate(['tweet-view', tweet]);
   }
 }
