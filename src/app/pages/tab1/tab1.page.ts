@@ -41,7 +41,6 @@ export class Tab1Page implements OnInit {
 
       if (token) {
         let endpoint = '';
-        let date = '';
         if (this.selectedSegment === 'global') {
           endpoint = '/tweet/allTweets';
         } else if (this.selectedSegment === 'following') {
@@ -56,9 +55,12 @@ export class Tab1Page implements OnInit {
 
         if (response && response.data && Array.isArray(response.data)) {
           this.tweets = response.data;
-          console.log(response);
-          this.lastTweetDate = this.tweets[4].createdAt;
-          console.log(this.lastTweetDate);
+          let tweetsLenght = this.tweets.length;
+          if (tweetsLenght > 0) {
+            console.log(tweetsLenght);
+            this.lastTweetDate = this.tweets[tweetsLenght - 1].createdAt;
+            console.log(this.lastTweetDate);
+          }
         }
       }
     } catch (error) {
