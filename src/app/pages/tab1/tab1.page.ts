@@ -3,6 +3,7 @@ import FetchApi from '../../services/fetchapi.service';
 import { Storage } from '@ionic/storage-angular';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -12,6 +13,7 @@ import { ToastController } from '@ionic/angular';
 export class Tab1Page implements OnInit {
   tweets: any[] = [];
   selectedSegment: string = 'global';
+  lastTweetDate: string = '';
 
   constructor(
     private fetchApi: FetchApi,
@@ -24,6 +26,7 @@ export class Tab1Page implements OnInit {
     this.fetchTweets();
   }
   handleRefresh(event: any) {
+    this.lastTweetDate = '';
     setTimeout(() => {
       // Any calls to load data go here
       event.target.complete();
@@ -38,7 +41,7 @@ export class Tab1Page implements OnInit {
 
       if (token) {
         let endpoint = '';
-
+        let date = '';
         if (this.selectedSegment === 'global') {
           endpoint = '/tweet/allTweets';
         } else if (this.selectedSegment === 'following') {
@@ -47,12 +50,15 @@ export class Tab1Page implements OnInit {
         const response = await this.fetchApi.request(
           'GET',
           null,
-          `${endpoint}/${userId}`,
+          `${endpoint}/${userId}?lastTweetDate=${this.lastTweetDate}`,
           token
         );
 
         if (response && response.data && Array.isArray(response.data)) {
           this.tweets = response.data;
+          console.log(response);
+          this.lastTweetDate = this.tweets[4].createdAt;
+          console.log(this.lastTweetDate);
         }
       }
     } catch (error) {
@@ -94,6 +100,7 @@ export class Tab1Page implements OnInit {
   onSegmentChanged(event: CustomEvent) {
     this.selectedSegment = event.detail.value;
     this.fetchTweets();
+    this.lastTweetDate = '';
   }
   async goToUser(user: string) {
     const userId = await this.storage.get('userId');
@@ -112,5 +119,11 @@ export class Tab1Page implements OnInit {
   }
   async goToTweet(tweet: string) {
     this.router.navigate(['tweet-view', tweet]);
+  }
+  onIonInfinite(ev: any) {
+    this.fetchTweets();
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
   }
 }
