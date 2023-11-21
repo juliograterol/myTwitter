@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar
+      [ngModel]="searchText"
+      (ngModelChange)="onSearchChange($event)"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngFor="let user of userList">
+    <div class="users">
+      <!-- Redirect to user -->
+      <div (click)="goToUser(user._id)" class="user">
+        <img [src]="user.profilePicture" class="minProfilePicture" />
+        <div>
+          <strong>{{ user.fullName }} </strong>
+          <img
+            *ngIf="user.isVerified"
+            src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+            height="15"
+            width="15"
+          />
+        </div>
+        <p>@{{ user.username }}</p>
+        <div>{{ user.followers }} Seguidores</div>
+      </div>
+      <!-- Follow User -->
+      <button
+        class="button"
+        (click)="Follow(user._id, user.isFollowing)"
+        *ngIf="user._id !== userId"
+      >
+        {{ user.isFollowing ? 'Dejar de seguir' : 'Seguir' }}
+      </button>
+    </div>
+  </div>
+</ion-content>

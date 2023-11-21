@@ -1,0 +1,137 @@
+<ion-content>
+  <button class="back" (click)="goBack()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </button>
+  <div class="tweet" *ngIf="tweet">
+    <div *ngIf="tweet.idUser._id === userId">
+      <button id="click-trigger" class="back">
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </button>
+      <ion-popover trigger="click-trigger" triggerAction="click">
+        <ng-template>
+          <button class="back" (click)="deleteConfirmation()">
+            Eliminar Tweet
+          </button>
+        </ng-template>
+      </ion-popover>
+    </div>
+    <div class="tweetBy" (click)="goToUser(tweet.idUser._id)">
+      <img [src]="tweet.idUser.profilePicture" />
+      <strong>{{ tweet.idUser.fullName }}</strong>
+      <img
+        *ngIf="tweet.idUser.isVerified"
+        src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+        height="15"
+        width="15"
+      />
+      <p>&nbsp;<a>@{{ tweet.idUser.username }}</a> · {{ tweet.createdAt }}</p>
+    </div>
+    <p>{{ tweet.content }}</p>
+    <div class="grid-container">
+      <div *ngFor="let imageUrl of tweet.attachmentUrls" class="grid-item">
+        <img [src]="imageUrl" alt="Tweet Image" />
+      </div>
+    </div>
+    <div class="options">
+      <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
+        <ion-icon
+          *ngIf="tweet.isLiked; else notLiked"
+          name="heart"
+          style="color: red"
+        ></ion-icon
+        >{{ tweet.likes }}
+      </button>
+    </div>
+  </div>
+  <!-- Mostrar las respuestas de este tweet -->
+  <div *ngIf="tweets">
+    <div *ngFor="let tweet of tweets">
+      <div class="tweet">
+        <div class="tweetBy" (click)="goToUser(tweet.idUser._id)">
+          <img [src]="tweet.idUser.profilePicture" />
+          <strong>{{ tweet.idUser.fullName }}</strong>
+          <img
+            *ngIf="tweet.idUser.isVerified"
+            src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+            height="15"
+            width="15"
+          />
+          <p>
+            &nbsp;<a>@{{ tweet.idUser.username }}</a> · {{ tweet.createdAt }}
+          </p>
+        </div>
+        <p>{{ tweet.content }}</p>
+        <!-- Attachments Urls: Image -->
+        <div class="grid-container">
+          <div *ngFor="let imageUrl of tweet.attachmentUrls" class="grid-item">
+            <img [src]="imageUrl" alt="Tweet Image" />
+          </div>
+        </div>
+        <!-- Attachments Urls: Image -->
+        <div class="options">
+          <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
+            <!-- Like -->
+            <ion-icon
+              *ngIf="tweet.isLiked; else notLiked"
+              name="heart"
+              style="color: red"
+            ></ion-icon
+            >{{tweet.likes}}
+          </button>
+          <button (click)="goToTweet(tweet._id)">
+            <ion-icon name="chatbubble-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ng-template #notLiked>
+  <ion-icon name="heart-outline"></ion-icon>
+</ng-template>
+
+<ion-fab>
+  <ion-fab-button expand="block" (click)="setOpen(true)">
+    <ion-icon name="chatbubble-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- MODAL -->
+<div>
+  <ion-modal [isOpen]="isModalOpen" (click)="focusInput()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>New Tweet</ion-title>
+          <ion-buttons slot="start">
+            <button class="back" (click)="setOpen(false)">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <button class="back" (click)="postTweet()">Publicar</button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <input [(ngModel)]="tweetContent.content" #tweetInput />
+      </ion-content>
+      <!-- Aqui van las imagenes -->
+      <ion-footer>
+        <!-- Lista de nombres de archivos -->
+        <div *ngIf="selectedFileNames.length > 0">
+          <p>Archivos seleccionados:</p>
+          <ul>
+            <li *ngFor="let fileName of selectedFileNames">{{ fileName }}</li>
+          </ul>
+        </div>
+        <!-- Imagenes -->
+        <ion-input type="file" (change)="handleFileInput($event)" multiple>
+          <ion-icon name="attach" class="attach"></ion-icon>
+        </ion-input>
+      </ion-footer>
+      <!--  -->
+    </ng-template>
+  </ion-modal>
+</div>

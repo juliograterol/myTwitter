@@ -1,0 +1,28 @@
+<ion-content>
+  <form (ngSubmit)="login()" class="container">
+    <ion-title><strong>Iniciar Sesión</strong></ion-title>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Usuario o Correo electrónico</ion-label>
+        <ion-input
+          name="identifier"
+          [(ngModel)]="userData.identifier"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input
+          type="password"
+          name="password"
+          [(ngModel)]="userData.password"
+          required
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="center">
+      <button class="button" expand="full" type="submit">Iniciar Sesión</button>
+      <p>No tienes cuenta? <a href="../register">Creat Cuenta</a></p>
+    </div>
+  </form>
+</ion-content>

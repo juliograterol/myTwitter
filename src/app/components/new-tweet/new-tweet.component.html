@@ -1,0 +1,48 @@
+<ion-fab>
+  <ion-fab-button expand="block" (click)="setOpen(true)">
+    <ion-icon name="create-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- MODAL -->
+<ion-content class="ion-padding">
+  <ion-modal [isOpen]="isModalOpen" (click)="focusInput()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>New Tweet</ion-title>
+          <ion-buttons slot="start">
+            <button class="back" (click)="setOpen(false)">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <button class="back" (click)="postConfirmation()">Publicar</button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <input
+          [(ngModel)]="tweetContent.content"
+          #tweetInput
+          placeholder="Escribe lo que tengas en mente..."
+        />
+      </ion-content>
+      <!-- Aqui van las imagenes -->
+      <ion-footer>
+        <!-- Lista de nombres de archivos -->
+        <div *ngIf="selectedFileNames.length > 0">
+          <p>Archivos seleccionados:</p>
+          <ul>
+            <li *ngFor="let fileName of selectedFileNames">{{ fileName }}</li>
+          </ul>
+        </div>
+        <!-- Imagenes -->
+        <ion-input type="file" (change)="handleFileInput($event)" multiple>
+          <ion-icon name="attach" class="attach"></ion-icon>
+        </ion-input>
+      </ion-footer>
+      <!--  -->
+    </ng-template>
+  </ion-modal>
+</ion-content>

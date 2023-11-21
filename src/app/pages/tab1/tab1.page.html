@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-segment value="global" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="global">
+      <ion-label>Global</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="following">
+      <ion-label>Siguiendo</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="tweets">
+    <div *ngFor="let tweet of tweets">
+      <div class="tweet">
+        <div class="tweetBy" (click)="goToUser(tweet.idUser._id)">
+          <img [src]="tweet.idUser.profilePicture" />
+          <strong>{{ tweet.idUser.fullName }}</strong>
+          <img
+            *ngIf="tweet.idUser.isVerified"
+            src="https://cdn-icons-png.flaticon.com/512/5253/5253963.png"
+            height="15"
+            width="15"
+          />
+          <p>
+            &nbsp;<a>@{{ tweet.idUser.username }}</a> · {{ tweet.createdAt }}
+          </p>
+        </div>
+        <p>{{ tweet.content }}</p>
+        <!-- Attachments Urls: Image -->
+        <div class="grid-container">
+          <div *ngFor="let imageUrl of tweet.attachmentUrls" class="grid-item">
+            <img [src]="imageUrl" alt="Tweet Image" />
+          </div>
+        </div>
+        <!-- Attachments Urls: Image -->
+        <div class="options">
+          <button (click)="LikeTweet(tweet._id, tweet.isLiked)">
+            <!-- Like -->
+            <ion-icon
+              *ngIf="tweet.isLiked; else notLiked"
+              name="heart"
+              style="color: red"
+            ></ion-icon
+            >{{tweet.likes}}
+          </button>
+          <button (click)="goToTweet(tweet._id)">
+            <ion-icon name="chatbubble-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ng-template #noTweets>
+    <div class="center">
+      <p>No hay tweets disponibles,</p>
+      <a (click)="startFollowing()">Comienza a seguir usuarios!</a>
+    </div>
+  </ng-template>
+</ion-content>
+
+<new-tweet></new-tweet>
+
+<ng-template #notLiked>
+  <ion-icon name="heart-outline"></ion-icon>
+</ng-template>

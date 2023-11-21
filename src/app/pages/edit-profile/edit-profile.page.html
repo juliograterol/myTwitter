@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true">
+  <button class="back" (click)="goBack()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </button>
+  <form class="container" (submit)="EditProfile()">
+    <ion-title><strong>Editar Perfil</strong></ion-title>
+    <ion-list>
+      <input type="file" (change)="onFileChange($event)" />
+      <ion-item>
+        <ion-label position="floating">Nombre Completo</ion-label>
+        <ion-input
+          [(ngModel)]="userData.fullName"
+          name="fullName"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input
+          [(ngModel)]="userData.username"
+          name="user"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Biografía</ion-label>
+        <ion-input [(ngModel)]="userData.bio" name="bio"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="userData.email"
+          name="email"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-title><strong>Cambiar Contraseña</strong></ion-title>
+      <ion-item>
+        <ion-label position="floating">Antigua Contraseña</ion-label>
+        <ion-input
+          type="password"
+          [(ngModel)]="userData.password"
+          name="password"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nueva Contraseña</ion-label>
+        <ion-input type="password" name="password" required></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="center">
+      <button class="button" type="submit">Guardar</button>
+    </div>
+  </form>
+</ion-content>

@@ -1,26 +1,184 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-/* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
-
 /* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
-
 /* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+body {
+  background-color: black;
+}
+
+input {
+  border: none; // Elimina el borde
+  background: transparent; // Establece un fondo transparente
+  padding: 10px; // Añade espacio alrededor del contenido del input
+  outline: none; // Elimina el resaltado al enfocar
+}
+
+input:focus {
+  border: none; // Elimina el borde en enfoque
+}
+ion-toast {
+  text-align: center;
+}
+
+ion-fab {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+ion-segment,
+ion-header {
+  background-color: #1f1f1f;
+}
+
+ion-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+ion-item,
+ion-input,
+ion-searchbar {
+  border-radius: 25px;
+  margin-bottom: 10px;
+}
+
+ion-searchbar {
+  width: 100%;
+}
+
+ion-list {
+  background-color: transparent;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.profile {
+  padding: 10px;
+}
+
+.button {
+  background-color: transparent;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 100px;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.minProfilePicture {
+  height: auto;
+  width: 50%;
+  overflow: hidden; // Asegúrate de que cualquier parte de la imagen fuera del contenedor esté oculta
+  border-radius: 100%;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(40%, 1fr)
+  ); /* ajusta el tamaño de las columnas según el contenido, con un mínimo de 200px */
+  grid-gap: 5px; /* espacio entre las celdas del grid */
+  grid-auto-flow: row; /* especifica que los elementos deben fluir en filas */
+}
+
+.profilePicture,
+.tweetBy img {
+  overflow: hidden; // Asegúrate de que cualquier parte de la imagen fuera del contenedor esté oculta
+  height: auto;
+  width: 100%;
+  border-radius: 100%;
+}
+
+.container {
+  align-content: center;
+  padding: 10px;
+}
+
+.tweet {
+  color: white;
+  background-color: #1f1f1f;
+  // border: 1px solid black; /* Borde */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 10px; /* Espaciado interno */
+  margin-bottom: 10px; /* Margen inferior entre tweets */
+  align-items: start;
+}
+
+.tweetBy {
+  display: flex;
+  align-items: center;
+}
+
+.tweetBy strong {
+  font-weight: bold; /* Texto en negrita */
+  font-size: 18px; /* Tamaño de fuente */
+}
+
+.tweetBy p {
+  color: #777; /* Color de texto */
+  font-size: 14px; /* Tamaño de fuente */
+  line-clamp: 1;
+}
+
+.tweetBy img {
+  height: 25px;
+  width: 25px;
+}
+
+/* Estilos para el contenido del tweet */
+p {
+  text-align: start;
+  font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Estilos para el área de opciones (botones) */
+.options {
+  display: flex;
+  justify-content: space-around;
+  // margin-top: 10px; /* Margen superior */
+}
+
+.options button {
+  display: flex;
+  flex-direction: row;
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cursor de tipo puntero al pasar el ratón */
+  font-size: 16px; /* Tamaño de fuente de los botones */
+  color: #777; /* Color de ícono */
+}
+
+.options button ion-icon {
+  color: #777; /* Color de ícono */
+}
+
+.back {
+  background: none;
+  color: white;
+  font-size: 18px; /* Tamaño de fuente */
+  padding: 10px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
